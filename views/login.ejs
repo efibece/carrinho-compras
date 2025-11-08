@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SuperMercado Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="navbar">
+    <div class="container">
+      <div class="nav-brand">
+        <a href="/login">🛒 SuperMercado Online</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="card" style="max-width: 500px; margin: 3rem auto;">
+      <h2 style="text-align: center; margin-bottom: 2rem; color: var(--cor-primaria);">🔐 Login</h2>
+      
+      <% if (erro) { %>
+        <div class="erro"><%= erro %></div>
+      <% } %>
+
+      <form method="POST" action="/login">
+        <div class="form-grupo">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-grupo">
+          <label for="senha">Senha</label>
+          <input type="password" id="senha" name="senha" required>
+        </div>
+
+        <button type="submit" class="btn btn-primario" style="width: 100%;">Entrar</button>
+      </form>
+
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <p>Não tem uma conta? <a href="/registro" style="color: var(--cor-primaria); text-decoration: none; font-weight: bold;">Registre-se aqui</a></p>
+      </div>
+
+      <div style="margin-top: 2rem; padding: 1rem; background-color: var(--cor-fundo); border-radius: 5px;">
+        <p style="font-weight: bold; margin-bottom: 0.5rem;">Usuários de teste:</p>
+        <p>👤 <strong>Comprador:</strong> joao@email.com / 123456</p>
+        <p>👁️ <strong>Visualizador:</strong> maria@email.com / 123456</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

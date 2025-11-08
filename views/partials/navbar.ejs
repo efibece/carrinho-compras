@@ -1,0 +1,22 @@
+<nav class="navbar">
+  <div class="navbar-container">
+    <a href="<%= usuario ? (usuario.tipo === 'comprador' ? '/produtos' : '/compras-realizadas') : '/login' %>" class="navbar-logo">🛒 SuperMercado Online</a>
+    <ul class="navbar-menu">
+      <% if (usuario) { %>
+        <% if (usuario.tipo === 'comprador') { %>
+          <li><a href="/produtos">🛍️ Produtos</a></li>
+          <li><a href="/carrinho">🛒 Carrinho</a></li>
+        <% } else { %>
+          <li><a href="/compras-realizadas">📋 Compras Realizadas</a></li>
+        <% } %>
+        <li class="navbar-usuario">
+          <span>Olá, <%= usuario.nome %></span>
+          <span class="badge <%= usuario.tipo === 'comprador' ? 'badge-comprador' : 'badge-visualizador' %>">
+            <%= usuario.tipo %>
+          </span>
+        </li>
+        <li><a href="/logout" class="btn-logout">Sair</a></li>
+      <% } %>
+    </ul>
+  </div>
+</nav>

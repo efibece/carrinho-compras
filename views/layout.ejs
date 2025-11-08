@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperMercado Online - <%= typeof title !== 'undefined' ? title : 'Home' %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/">🛒 SuperMercado Online</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Início</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <% if (usuario) { %>
+                    <li><a href="/produtos">Produtos</a></li>
+                    <li><a href="/carrinho">🛒 Carrinho</a></li>
+                    <li class="user-info">
+                        <span>Olá, <%= usuario.nome %></span>
+                        <span class="badge <%= usuario.tipo === 'comprador' ? 'badge-comprador' : 'badge-visualizador' %>">
+                            <%= usuario.tipo %>
+                        </span>
+                    </li>
+                    <li><a href="/logout" class="btn-logout">Sair</a></li>
+                <% } else { %>
+                    <li><a href="/login" class="btn-login">Entrar</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <%- body %>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 SuperMercado Online. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>
