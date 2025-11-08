@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compra Finalizada - SuperMercado Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="confirmacao">
+      <div class="confirmacao-icone">✅</div>
+      <h2>Compra Finalizada com Sucesso!</h2>
+      <p>Obrigado por comprar conosco, <%= usuario.nome %>!</p>
+      <p style="color: var(--cor-cinza);">Data: <%= resumo.data %></p>
+    </div>
+
+    <div class="card">
+      <h3 style="margin-bottom: 1.5rem; color: var(--cor-primaria);">Resumo da Compra</h3>
+      
+      <% resumo.itens.forEach(item => { %>
+        <div style="display: flex; justify-content: space-between; padding: 1rem 0; border-bottom: 1px solid var(--cor-fundo);">
+          <div>
+            <strong><%= item.produto.nome %></strong>
+            <div style="color: var(--cor-cinza); font-size: 0.9rem;">
+              <%= item.quantidade %>x R$ <%= item.produto.preco.toFixed(2) %>
+            </div>
+          </div>
+          <div style="font-weight: bold;">
+            R$ <%= (item.produto.preco * item.quantidade).toFixed(2) %>
+          </div>
+        </div>
+      <% }) %>
+
+      <div style="display: flex; justify-content: space-between; padding: 1.5rem 0; font-size: 1.3rem; font-weight: bold;">
+        <span>Total:</span>
+        <span style="color: var(--cor-primaria);">R$ <%= resumo.total.toFixed(2) %></span>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <a href="/produtos" class="btn btn-primario">Continuar Comprando</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Produtos - SuperMercado Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: var(--cor-primaria);">🛍️ Nossos Produtos</h1>
+
+    <div class="filtros">
+      <button class="filtro-btn ativo" onclick="filtrarPorCategoria('todas')">Todas</button>
+      <% categorias.forEach(categoria => { %>
+        <button class="filtro-btn" onclick="filtrarPorCategoria('<%= categoria %>')"><%= categoria %></button>
+      <% }) %>
+    </div>
+
+    <div class="produtos-grid">
+      <% produtos.forEach(produto => { %>
+        <div class="produto-card" data-categoria="<%= produto.categoria %>">
+          <div class="produto-imagem"><%= produto.imagem %></div>
+          <div class="produto-nome"><%= produto.nome %></div>
+          <div class="produto-categoria"><%= produto.categoria %></div>
+          <div class="produto-preco">R$ <%= produto.preco.toFixed(2) %></div>
+          
+          <% if (usuario && usuario.tipo === 'comprador') { %>
+            <div class="produto-acoes">
+              <input type="number" class="quantidade-input" id="qtd-<%= produto.id %>" value="1" min="1">
+              <button class="btn btn-primario btn-pequeno" onclick="adicionarAoCarrinho(<%= produto.id %>, parseInt(document.getElementById('qtd-<%= produto.id %>').value))">
+                Adicionar
+              </button>
+            </div>
+          <% } else { %>
+            <p style="color: var(--cor-cinza); font-size: 0.9rem;">Apenas visualização</p>
+          <% } %>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <script src="/js/carrinho.js"></script>
+  <script src="/js/produtos.js"></script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrinho - SuperMercado Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: var(--cor-primaria);">🛒 Meu Carrinho</h1>
+
+    <% if (typeof erro !== 'undefined' && erro) { %>
+      <div class="erro"><%= erro %></div>
+    <% } %>
+
+    <% if (carrinho.itens.length === 0) { %>
+      <div class="carrinho-vazio">
+        <div class="carrinho-vazio-icone">🛒</div>
+        <h2>Seu carrinho está vazio</h2>
+        <p>Adicione produtos para começar suas compras!</p>
+        <a href="/produtos" class="btn btn-primario">Ver Produtos</a>
+      </div>
+    <% } else { %>
+      <% carrinho.itens.forEach(item => { %>
+        <div class="carrinho-item">
+          <div class="carrinho-item-imagem"><%= item.produto.imagem %></div>
+          <div class="carrinho-item-info">
+            <div class="carrinho-item-nome"><%= item.produto.nome %></div>
+            <div class="carrinho-item-preco">R$ <%= item.produto.preco.toFixed(2) %> cada</div>
+          </div>
+          <div class="carrinho-item-acoes">
+            <% if (usuario.tipo === 'comprador') { %>
+              <input 
+                type="number" 
+                class="quantidade-input" 
+                value="<%= item.quantidade %>" 
+                min="1"
+                onchange="atualizarQuantidade(<%= item.produto.id %>, this.value)"
+              >
+              <button class="btn btn-secundario btn-pequeno" onclick="removerDoCarrinho(<%= item.produto.id %>)">
+                Remover
+              </button>
+            <% } else { %>
+              <span>Quantidade: <%= item.quantidade %></span>
+            <% } %>
+          </div>
+          <div style="font-weight: bold; font-size: 1.2rem;">
+            R$ <%= (item.produto.preco * item.quantidade).toFixed(2) %>
+          </div>
+        </div>
+      <% }) %>
+
+      <div class="carrinho-resumo">
+        <div class="carrinho-total">
+          <span>Total:</span>
+          <span style="color: var(--cor-primaria);">R$ <%= carrinho.total.toFixed(2) %></span>
+        </div>
+        
+        <% if (usuario.tipo === 'comprador') { %>
+          <form method="POST" action="/carrinho/finalizar">
+            <button type="submit" class="btn btn-primario" style="width: 100%; font-size: 1.2rem;">
+              Finalizar Compra
+            </button>
+          </form>
+        <% } else { %>
+          <p style="text-align: center; color: var(--cor-cinza);">
+            Você não tem permissão para finalizar compras
+          </p>
+        <% } %>
+      </div>
+    <% } %>
+  </div>
+
+  <script src="/js/carrinho.js"></script>
+</body>
+</html>

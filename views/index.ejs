@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SuperMercado Online - Início</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <div class="hero">
+      <h1>🛒 Bem-vindo ao SuperMercado Online</h1>
+      <p>Suas compras de supermercado de forma rápida e prática!</p>
+      <% if (!usuario) { %>
+        <a href="/login" class="btn">Fazer Login</a>
+      <% } else { %>
+        <a href="/produtos" class="btn">Ver Produtos</a>
+      <% } %>
+    </div>
+
+    <div class="info-box">
+      <h2>Por que escolher nosso supermercado?</h2>
+      <p>✅ Produtos frescos e de qualidade</p>
+      <p>✅ Preços competitivos</p>
+      <p>✅ Entrega rápida</p>
+      <p>✅ Atendimento personalizado</p>
+    </div>
+
+    <div class="info-box">
+      <h2>Como funciona?</h2>
+      <p>1️⃣ Faça login na sua conta</p>
+      <p>2️⃣ Navegue pelos produtos</p>
+      <p>3️⃣ Adicione ao carrinho</p>
+      <p>4️⃣ Finalize sua compra</p>
+    </div>
+  </div>
+</body>
+</html>

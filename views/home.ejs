@@ -1,0 +1,82 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SuperMercado Online - Início</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <a href="/">🛒 SuperMercado Online</a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/">Início</a></li>
+                <li><a href="/sobre">Sobre</a></li>
+                <li><a href="/contato">Contato</a></li>
+                <% if (usuario) { %>
+                    <li><a href="/produtos">Produtos</a></li>
+                    <li><a href="/carrinho">🛒 Carrinho</a></li>
+                    <li class="user-info">
+                        <span>Olá, <%= usuario.nome %></span>
+                        <span class="badge <%= usuario.tipo === 'comprador' ? 'badge-comprador' : 'badge-visualizador' %>">
+                            <%= usuario.tipo %>
+                        </span>
+                    </li>
+                    <li><a href="/logout" class="btn-logout">Sair</a></li>
+                <% } else { %>
+                    <li><a href="/login" class="btn-login">Entrar</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h1>Bem-vindo ao SuperMercado Online</h1>
+                <p>Suas compras de supermercado com praticidade e economia</p>
+                <% if (!usuario) { %>
+                    <a href="/login" class="btn btn-primary">Faça seu Login</a>
+                <% } else { %>
+                    <a href="/produtos" class="btn btn-primary">Ver Produtos</a>
+                <% } %>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Por que comprar conosco?</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚚</div>
+                        <h3>Entrega Rápida</h3>
+                        <p>Receba seus produtos no conforto da sua casa</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💰</div>
+                        <h3>Melhores Preços</h3>
+                        <p>Ofertas especiais todos os dias</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">✅</div>
+                        <h3>Qualidade Garantida</h3>
+                        <p>Produtos selecionados e frescos</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 SuperMercado Online. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+</body>
+</html>

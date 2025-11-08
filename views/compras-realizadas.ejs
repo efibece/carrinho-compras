@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compras Realizadas - SuperMercado Online</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <%- include('partials/navbar') %>
+
+  <div class="container">
+    <h1 style="text-align: center; margin-bottom: 2rem; color: var(--cor-primaria);">📋 Compras Realizadas</h1>
+
+    <% if (compras.length === 0) { %>
+      <div class="card" style="text-align: center; padding: 3rem;">
+        <p style="font-size: 3rem; margin-bottom: 1rem;">🛒</p>
+        <p style="font-size: 1.2rem; color: var(--cor-cinza);">Nenhuma compra realizada ainda</p>
+      </div>
+    <% } else { %>
+      <div class="compras-lista">
+        <% compras.forEach(compra => { %>
+          <div class="card compra-card" style="margin-bottom: 2rem;">
+            <div class="compra-header" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--cor-fundo); padding-bottom: 1rem; margin-bottom: 1rem;">
+              <div>
+                <h3 style="margin: 0; color: var(--cor-primaria);">👤 <%= compra.usuarioNome %></h3>
+                <p style="margin: 0.5rem 0 0 0; color: var(--cor-cinza); font-size: 0.9rem;">
+                  📅 <%= new Date(compra.data).toLocaleString('pt-BR') %>
+                </p>
+              </div>
+              <div style="text-align: right;">
+                <p style="margin: 0; font-size: 0.9rem; color: var(--cor-cinza);">ID da Compra</p>
+                <p style="margin: 0.25rem 0 0 0; font-size: 1.1rem; font-weight: bold; color: var(--cor-primaria);">#<%= compra.id %></p>
+              </div>
+            </div>
+
+            <div class="compra-itens">
+              <table style="width: 100%; border-collapse: collapse;">
+                <thead>
+                  <tr style="border-bottom: 1px solid var(--cor-fundo);">
+                    <th style="text-align: left; padding: 0.5rem;">Produto</th>
+                    <th style="text-align: center; padding: 0.5rem;">Quantidade</th>
+                    <th style="text-align: right; padding: 0.5rem;">Preço Unit.</th>
+                    <th style="text-align: right; padding: 0.5rem;">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% compra.itens.forEach(item => { %>
+                    <tr style="border-bottom: 1px solid var(--cor-fundo-claro);">
+                      <td style="padding: 0.75rem;"><%= item.produtoNome %></td>
+                      <td style="padding: 0.75rem; text-align: center;"><%= item.quantidade %></td>
+                      <td style="padding: 0.75rem; text-align: right;">R$ <%= item.preco.toFixed(2) %></td>
+                      <td style="padding: 0.75rem; text-align: right; font-weight: bold;">R$ <%= item.subtotal.toFixed(2) %></td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="compra-total" style="display: flex; justify-content: flex-end; margin-top: 1rem; padding-top: 1rem; border-top: 2px solid var(--cor-primaria);">
+              <div style="text-align: right;">
+                <p style="margin: 0; font-size: 1rem; color: var(--cor-cinza);">Total da Compra</p>
+                <p style="margin: 0.25rem 0 0 0; font-size: 1.5rem; font-weight: bold; color: var(--cor-sucesso);">R$ <%= compra.total.toFixed(2) %></p>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</body>
+</html>
